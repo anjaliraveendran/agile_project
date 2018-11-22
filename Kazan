@@ -1,17 +1,9 @@
 
-/**
- * 在这里给出对类 Kazan 的描述。
- * 
- * @作者（你的名字）
- * @版本（一个版本号或者一个日期）
- */
 public class Kazan
 {
     private int numberOfKorgools;
     
-    /**
-     * 类 Kazan 的对象的构造函数
-     */
+ 
     public Kazan()
     {
         numberOfKorgools = 0;
