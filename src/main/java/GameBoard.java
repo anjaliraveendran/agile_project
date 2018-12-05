@@ -1,3 +1,4 @@
+package main.java;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -14,6 +15,8 @@ import javax.swing.SwingUtilities;
 public class GameBoard {
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
+	
+	//blue balls
 	JButton c1 = new JButton("9");
 	JButton c2 = new JButton("9");
 	JButton c3 = new JButton("9");
@@ -34,11 +37,41 @@ public class GameBoard {
 	JButton p8 = new JButton("9");
 	JButton p9 = new JButton("9");
 	
-	JButton handshake1 = new JButton("Hand shake");
-	JButton handshake2 = new JButton("Hand shake");
+	
+	//red balls
+	JButton r1 = new JButton("0");
+	JButton r2 = new JButton("0");
+	JButton r3 = new JButton("0");
+	JButton r4 = new JButton("0");
+	JButton r5 = new JButton("0");
+	JButton r6 = new JButton("0");
+	JButton r7 = new JButton("0");
+	JButton r8 = new JButton("0");
+	JButton r9 = new JButton("0");
+
+	JButton r10 = new JButton("0");
+	JButton r11 = new JButton("0");
+	JButton r12 = new JButton("0");
+	JButton r13 = new JButton("0");
+	JButton r14 = new JButton("0");
+	JButton r15 = new JButton("0");
+	JButton r16 = new JButton("0");
+	JButton r17 = new JButton("0");
+	JButton r18 = new JButton("0");
+	
+    JButton handShake1 = new JButton("Hand Shake");
+    JButton handShake2 = new JButton("Hand Shake");
 	
 	JButton ckazaan = new JButton("Score=0");
 	JButton pkazaan = new JButton("Score=0");
+	
+	JButton red1 = new JButton("1");
+	JButton red2 = new JButton("1");
+	
+	
+	//players buttons
+	JButton player1 = new JButton("Player 1");
+	JButton player2 = new JButton("Player 2");
 
 	
 	public GameBoard() {
@@ -94,72 +127,189 @@ public class GameBoard {
 		c9.setBackground(Color.GRAY);
 		panel.add(c9, gbc);
 		
-		gbc.gridx = 9;
-		gbc.gridy = 0;
-		handshake1.setBackground(Color.GRAY);
-		panel.add(handshake1, gbc);
+
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		r1.setBackground(Color.RED);
+		panel.add(r1, gbc);
 		
-		gbc.gridx = 9;
-		gbc.gridy = 3;
-		handshake2.setBackground(Color.GRAY);
-		panel.add(handshake2, gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		r2.setBackground(Color.RED);
+		panel.add(r2, gbc);
+		
+		gbc.gridx = 2;
+		gbc.gridy = 1;
+		r3.setBackground(Color.RED);
+		panel.add(r3, gbc);
+		
+		gbc.gridx = 3;
+		gbc.gridy = 1;
+		r4.setBackground(Color.RED);
+		panel.add(r4, gbc);
+		
+		gbc.gridx = 4;
+		gbc.gridy = 1;
+		r5.setBackground(Color.RED);
+		panel.add(r5, gbc);
+		
+		gbc.gridx = 5;
+		gbc.gridy = 1;
+		r6.setBackground(Color.RED);
+		panel.add(r6, gbc);
+		
+		gbc.gridx = 6;
+		gbc.gridy = 1;
+		r7.setBackground(Color.RED);
+		panel.add(r7, gbc);
+		
+		gbc.gridx = 7;
+		gbc.gridy = 1;
+		r8.setBackground(Color.RED);
+		panel.add(r8, gbc);
+		
+		gbc.gridx = 8;
+		gbc.gridy = 1;
+		r9.setBackground(Color.RED);
+		panel.add(r9, gbc);
 		
 		gbc.gridx = 0;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
+		r10.setBackground(Color.RED);
+		panel.add(r10, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		r11.setBackground(Color.RED);
+		panel.add(r11, gbc);
+		
+		gbc.gridx = 2;
+		gbc.gridy = 4;
+		r12.setBackground(Color.RED);
+		panel.add(r12, gbc);
+		
+		gbc.gridx = 3;
+		gbc.gridy = 4;
+		r13.setBackground(Color.RED);
+		panel.add(r13, gbc);
+		
+		gbc.gridx = 4;
+		gbc.gridy = 4;
+		r14.setBackground(Color.RED);
+		panel.add(r14, gbc);
+		
+		gbc.gridx = 5;
+		gbc.gridy = 4;
+		r15.setBackground(Color.RED);
+		panel.add(r15, gbc);
+		
+		gbc.gridx = 6;
+		gbc.gridy = 4;
+		r16.setBackground(Color.RED);
+		panel.add(r16, gbc);
+		
+		gbc.gridx = 7;
+		gbc.gridy = 4;
+		r17.setBackground(Color.RED);
+		panel.add(r17, gbc);
+		
+		gbc.gridx = 8;
+		gbc.gridy = 4;
+		r18.setBackground(Color.RED);
+		panel.add(r18, gbc);
+		
+        gbc.gridx = 9;
+        gbc.gridy = 0;
+        handShake1.setBackground(Color.GRAY);
+        panel.add(handShake1, gbc);
+        
+        gbc.gridx = 9;
+        gbc.gridy = 5;
+        handShake2.setBackground(Color.GRAY);
+        panel.add(handShake2, gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 5;
 		p1.setBackground(Color.GRAY);
 		panel.add(p1, gbc);
 		
 		gbc.gridx = 1;
-		gbc.gridy = 3;
+		gbc.gridy = 5;
 		p2.setBackground(Color.GRAY);
 		panel.add(p2, gbc);
 		
 		gbc.gridx = 2;
-		gbc.gridy = 3;
+		gbc.gridy = 5;
 		p3.setBackground(Color.GRAY);
 		panel.add(p3, gbc);
 		
 		gbc.gridx = 3;
-		gbc.gridy = 3;
+		gbc.gridy = 5;
 		p4.setBackground(Color.GRAY);
 		panel.add(p4, gbc);
 		
 		gbc.gridx = 4;
-		gbc.gridy = 3;
+		gbc.gridy = 5;
 		p5.setBackground(Color.GRAY);
 		panel.add(p5, gbc);
 		
 		gbc.gridx = 5;
-		gbc.gridy = 3;
+		gbc.gridy = 5;
 		p6.setBackground(Color.GRAY);
 		panel.add(p6, gbc);
 		
 		gbc.gridx = 6;
-		gbc.gridy = 3;
+		gbc.gridy = 5;
 		p7.setBackground(Color.GRAY);
 		panel.add(p7, gbc);
 		
 		gbc.gridx = 7;
-		gbc.gridy = 3;
+		gbc.gridy = 5;
 		p8.setBackground(Color.GRAY);
 		panel.add(p8, gbc);
 		
 		gbc.gridx = 8;
-		gbc.gridy = 3;
+		gbc.gridy = 5;
 		p9.setBackground(Color.GRAY);
 		panel.add(p9, gbc);
 		
-		gbc.gridwidth = 9;
+		
 		gbc.gridx = 0;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
+		red1.setBackground(Color.RED);
+		panel.add(red1, gbc);
+		
+		gbc.gridx = 8;
+		gbc.gridy = 3;
+		red2.setBackground(Color.RED);
+		panel.add(red2, gbc);
+		
+		
+		//players buttons
+		
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		player1.setBackground(Color.white);
+		panel.add(player1, gbc);
+		
+		gbc.gridx = 8;
+		gbc.gridy = 2;
+		player2.setBackground(Color.white);
+		panel.add(player2, gbc);
+		
+		gbc.gridwidth = 7;
+		gbc.gridx = 1;
+		gbc.gridy = 2;
 		ckazaan.setBackground(Color.PINK);
 		panel.add(ckazaan, gbc);
 		
-		gbc.gridwidth = 9;
-		gbc.gridx = 0;
-		gbc.gridy = 2;
+		gbc.gridwidth = 7;
+		gbc.gridx = 1;
+		gbc.gridy = 3;
 		pkazaan.setBackground(Color.PINK);
 		panel.add(pkazaan, gbc);
+		
+		
 		
 		frame.add(panel);
 		frame.getContentPane().setBackground(Color.CYAN);
@@ -181,13 +331,13 @@ public class GameBoard {
 //        return pane;
 //    }
     
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new GameBoard();
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			@Override
+//			public void run() {
+//				new GameBoard();
+//			}
+//		});
+//	}
 
 }
