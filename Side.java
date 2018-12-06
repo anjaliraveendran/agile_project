@@ -4,19 +4,24 @@ import java.util.Arrays;
 public class Side
 {
     private Hole[] holes;
-    
     private Kazan kazan;
+    private String colour;
 
-  
-    public Side()
+    public Side(String colour)
     {
         holes = new Hole[9];
         kazan = new Kazan();
+        this.colour = colour;
     }
 
     public int getNumberInKazan()
     {
         return kazan.getNumberOfKorgools();
+    }
+    
+    public Hole getHole(int index)
+    {
+        return holes[index-1];
     }
     
     public void insertKorgoolsToKazan(int number)
@@ -29,6 +34,10 @@ public class Side
         return holes[index].getNumberOfKorgools();
     }
     
+    public String getColour() {
+        return colour;
+    }
+    
     public void addKorgoolsToHole(int index)
     {
         holes[index].addKorgools();
@@ -38,4 +47,5 @@ public class Side
     {
         holes[index].deleteKorgools(number);
     }
+    
 }
