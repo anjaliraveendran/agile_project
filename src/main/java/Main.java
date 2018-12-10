@@ -28,7 +28,7 @@ public class Main {
     private JButton player1_btn, player2_btn;
 
     private JLabel p1_kazan_l, p2_kazan_l;
-
+    //constructor
     public Main() {
         player1 = false;
         player2 = true;
