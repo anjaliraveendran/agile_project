@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Side
+comment1.params=colour
+comment1.target=Side(java.lang.String)
+comment10.params=index\ number
+comment10.target=void\ deleteKorgoolsAtHole(int,\ int)
+comment2.params=
+comment2.target=int\ getNumberInKazan()
+comment3.params=index
+comment3.target=Hole\ getHole(int)
+comment4.params=number\ hole
+comment4.target=void\ updateKazan(int,\ Hole)
+comment5.params=index
+comment5.target=int\ getNumberInHole(int)
+comment6.params=
+comment6.target=java.lang.String\ getColour()
+comment7.params=
+comment7.target=Hole\ getTuz()
+comment8.params=tuz
+comment8.target=void\ setTuz(Hole)
+comment9.params=index
+comment9.target=void\ addKorgoolsToHole(int)
+numComments=11

@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=HumanPlayer
+comment1.params=colour\ board
+comment1.target=HumanPlayer(java.lang.String,\ Board)
+comment2.params=index
+comment2.target=void\ move(int)
+numComments=3

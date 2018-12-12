@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=
+comment1.target=Main()
+comment2.params=myLabel
+comment2.target=void\ turnRed(javax.swing.JLabel)
+comment3.params=
+comment3.target=void\ gui()
+comment4.params=e
+comment4.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment5.params=e
+comment5.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment6.params=index
+comment6.target=void\ player2Redistribution(int)
+comment7.params=index
+comment7.target=void\ player1Redistribution(int)
+comment8.params=args
+comment8.target=void\ main(java.lang.String[])
+numComments=9
