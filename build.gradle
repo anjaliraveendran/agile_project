@@ -5,7 +5,7 @@ plugins {
     id 'application'
 }
 
-mainClassName = "main.java.Main"
+mainClassName = "src.main.java.Main"
 
 version '0.1'
 

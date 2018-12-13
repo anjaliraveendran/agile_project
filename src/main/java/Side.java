@@ -23,7 +23,8 @@ public class Side
     
     public Hole getHole(int index)
     {
-        return holes[index-1];
+        return holes[1];
+       // return holes[index];
     }
     
     public void insertKorgoolsToKazan(int number)

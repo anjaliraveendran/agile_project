@@ -26,14 +26,14 @@ public class Board
         for(int i = 0; i < 9; i++)
         {
             holesOfBoth[i] = sideLight.getHole(i);
-            sideLight.getHole(i).setColour(lightC);
+            //sideLight.getHole(i).setColour(lightC);
             
         }
         
         for(int i = 9; i < 18; i++)
         {
             holesOfBoth[i] = sideDark.getHole(i-9);
-            sideDark.getHole(i).setColour(darkC);
+            //sideDark.getHole(i).setColour(darkC);
         }
         
     }
