@@ -96,6 +96,15 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
+#Doc Ordner
+**/doc
+*.class
+*.pkh
+*.ctxt
+*.bluej
+.DS_Store
+*.ctxt
+
 ### Gradle Patch ###
 **/build/
 
