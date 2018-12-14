@@ -5,16 +5,23 @@ public class Hole
 {
     private int numberOfKorgools;
     private String colour;
+    private int index;
 
-    public Hole()
+    public Hole(int index)
     {
         numberOfKorgools = 9;
         colour = "";
+        this.index = index;
     }
 
     public int getNumberOfKorgools()
     {
         return numberOfKorgools;
+    }
+    
+    public int getIndex()
+    {
+        return index;
     }
     
     public String getColour()

@@ -1,15 +1,14 @@
 package src.main.java;
 
-
 public class HumanPlayer extends Player{
+    public HumanPlayer(String colour, Board board){
+        super(colour, board);
+    }
 
-public HumanPlayer(String colour, Board board){
-    super(colour, board);
-}
-
-public void move(int index)
-{
-    tuz = board.moveBalls(index);
-}
+    public void move(int index)
+    {
+            board.moveBalls(index,colour);
+        
+    }
 
 }
