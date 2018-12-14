@@ -11,10 +11,11 @@ public class Board
 {
     // instance variables - replace the example below with your own
     //private ArrayList <Hole> holeList;
-    private Side sideDark;
-    private Side sideLight;
-    private Hole[] holesOfBoth;
-    
+    public Side sideDark;
+    public Side sideLight;
+    public Hole[] holesOfBoth;
+    public static final int tuzNum = 3;
+
     /**
      * Constructor for objects of class Board
      */
@@ -23,50 +24,78 @@ public class Board
         sideDark = new Side(darkC);
         sideLight = new Side(lightC);
         holesOfBoth = new Hole[18];
+
         for(int i = 0; i < 9; i++)
         {
             holesOfBoth[i] = sideLight.getHole(i);
-            //sideLight.getHole(i).setColour(lightC);
-            
         }
-        
         for(int i = 9; i < 18; i++)
         {
             holesOfBoth[i] = sideDark.getHole(i-9);
-            //sideDark.getHole(i).setColour(darkC);
         }
-        
+
     }
-    
-    public Hole moveBalls(int index) {
+
+    public void moveBalls(int index) {
         Side side;
-        if(index > 9){
+        if(isDark(index)){
             side = sideDark;
         }else{
             side = sideLight;
         }
-        int numberInHole = side.getNumberInHole(index);
-        //side.deleteKorgoolsAtHole(index, numberOfBalls);
-                 int indexOfCurrent = index - 1;
-                 int steps = 0;
+        int indexOfCurrent = index - 1;
+        Hole startHole = holesOfBoth[indexOfCurrent];
+        int numberInHole = startHole.getNumberOfKorgools();
+
         if(numberInHole > 1) {
             for(int i = 0; i < numberInHole-1; i++) {
                 side.addKorgoolsToHole(indexOfCurrent%18);
-                steps++;
+                startHole.deleteKorgools(1);
+                indexOfCurrent++;
+                System.out.println("index..."+ i +": num..." + numberInHole);
             } 
         }
         else if(numberInHole == 1) {
             side.addKorgoolsToHole((indexOfCurrent+1)%18);
-            steps++;
+            startHole.deleteKorgools(1);
+            indexOfCurrent++;
         }
-      Hole tuz = holesOfBoth[indexOfCurrent + steps];
-        if(tuz.getNumberOfKorgools() == 3 && !tuz.getColour().equals(side.getColour()))
+        Hole hole = holesOfBoth[indexOfCurrent];
+        if((hole.getNumberOfKorgools() % 2) == 0 && !hole.getColour().equals(side.getColour()))
         {
-            //add to current players kazan
-            
-            return tuz;
+            side.updateKazan(hole.getNumberOfKorgools(), hole);
+        }
+
+        if(side.getTuz() == null){
+            if(hole.getNumberOfKorgools() == tuzNum && !hole.getColour().equals(side.getColour()) && tuzRules(indexOfCurrent))
+            {
+                //add to current players kazan
+                side.updateKazan(hole.getNumberOfKorgools(), hole);
+                side.setTuz(hole);
+            }
         }else{
-            return null;
+            int n = side.getTuz().getNumberOfKorgools();
+            side.getTuz().deleteKorgools(n);
+        }
+
+        if(isDark(index)){
+            sideDark = side;
+        }else{
+            sideLight = side;
+        }
+    }
+
+    private boolean tuzRules(int index)
+    {
+        return ((index % 8) == 0 || (index % 17) == 0);
+    }
+
+    private boolean isDark(int index)
+    {
+        if(index > 9){
+            return true;
+        }else{
+            return false;
         }
     }
 }

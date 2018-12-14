@@ -5,15 +5,26 @@ import java.util.Arrays;
 
 public class Side
 {
-    private Hole[] holes;
+    private Hole tuz;
     private Kazan kazan;
     private String colour;
+    private Hole[] holes = new Hole[9];
+    
 
     public Side(String colour)
     {
-        holes = new Hole[9];
+       for(int i=0; i<9; i++){
+        holes[i] = new Hole();
+       }
+        
         kazan = new Kazan();
+        tuz = null;
         this.colour = colour;
+        for(int i = 0; i < 9; i++)
+        {
+            holes[i].setColour(colour);
+           // System.out.println("index..."+ i +": num..." + numberInHole);
+        }
     }
 
     public int getNumberInKazan()
@@ -23,13 +34,13 @@ public class Side
     
     public Hole getHole(int index)
     {
-        return holes[1];
-       // return holes[index];
+        return holes[index];
     }
     
-    public void insertKorgoolsToKazan(int number)
+    public void updateKazan(int number, Hole hole)
     {
         kazan.addKorgools(number);
+        hole.deleteKorgools(number);
     }
     
     public int getNumberInHole(int index)
@@ -39,6 +50,16 @@ public class Side
     
     public String getColour() {
         return colour;
+    }
+    
+    public Hole getTuz()
+    {
+        return tuz;
+    }
+    
+    public void setTuz(Hole tuz)
+    {
+        this.tuz = tuz;
     }
     
     public void addKorgoolsToHole(int index)
