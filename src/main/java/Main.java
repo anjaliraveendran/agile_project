@@ -21,7 +21,9 @@ public class Main
      */
     public static void main(String[] args) throws IOException
     {
-        Board board = new Board(lightC, darkC);
+        //Board board = new Board(lightC, darkC);
+        System.out.print(" hello ");
+        GameBoard gameBoard = new GameBoard();
     }
 
     
