@@ -52,8 +52,9 @@ public class Side
     {
         return holes[index];
     }
-    
+
     public void updateKazan(Hole hole)
+
     {
         int number = hole.getNumberOfKorgools();
         kazan.addKorgools(number);

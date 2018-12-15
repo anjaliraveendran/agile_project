@@ -11,9 +11,11 @@ public class Board
 {
     // instance variables - replace the example below with your own
     //private ArrayList <Hole> holeList;
+
     private Side sideDark;
     private Side sideLight;
     private static final int tuzNum = 3;
+
 
     /**
      * Constructor for objects of class Board
@@ -22,6 +24,7 @@ public class Board
     {
         sideDark = new Side(darkC);
         sideLight = new Side(lightC);
+
     }
     
     public boolean darkWin()
@@ -50,6 +53,7 @@ public class Board
             current = sideLight;
             other = sideDark;
         }
+
         //int indexOfCurrent = index - 1;
         //Hole startHole = holesOfBoth[indexOfCurrent];
         //int numberInHole = startHole.getNumberOfKorgools();
@@ -130,11 +134,12 @@ public class Board
     {
         if(sideDark.getColour().equals(colour))
         {
+
             return true;
         }else{
             return false;
         }
     }
     
-    
 }
+

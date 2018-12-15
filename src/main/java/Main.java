@@ -5,34 +5,33 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main {
 
-    int score = 0;
-    boolean p1Tuzz = false, p2Tuzz = false;
-    int p1DeniedIndex = 0, p2DeniedIndex = 0;
-    JLabel player1Point[] = new JLabel[9];
-    JLabel player2Point[] = new JLabel[9];
+/**
+ * Write a description of class Simulator here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class Main
+{
+    private static final String lightC = "white";
+    private static final String darkC = "black";
+    private static Board board;
+    private Player hunman;
+    private Player computer;
+    
+    /**
+     * Constructor for objects of class Simulator
+     */
+    public static void main(String[] args) throws IOException
+    {
+        //Board board = new Board(lightC, darkC);
+        System.out.print(" hello ");
+        Water water = new Water();
+        GameBoard gameBoard = new GameBoard();
+        
+        //System.out.print(" fin gameboard ");
 
-    JLabel player1korgool[] = new JLabel[9];
-    JLabel player2korgool[] = new JLabel[9];
-
-    JPanel player1Panel[] = new JPanel[9];
-    JPanel player2Panel[] = new JPanel[9];
-
-    private boolean player1, player2;
-    private JFrame f;
-    private JPanel mainPanel;
-    private JPanel player1_Panel, player2_Panel;
-    private JPanel kazan_Panel, py1_kz_panel, py2_kz_panel;
-    private JPanel btn_Panel;
-    private JButton player1_btn, player2_btn;
-
-    private JLabel p1_kazan_l, p2_kazan_l;
-    //constructor
-    public Main() {
-        player1 = false;
-        player2 = true;
-        gui();
     }
 
     protected void turnRed(JLabel myLabel){
