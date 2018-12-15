@@ -5,10 +5,11 @@ public class HumanPlayer extends Player{
         super(colour, board);
     }
 
-    public void move(int index)
+    public boolean move(int index)
     {
-            board.moveBalls(index,colour);
-        
+        boolean go = board.moveBalls(index,colour);
+        score = board.getSide(colour).getNumberInKazan();
+        return go;
     }
 
 }
