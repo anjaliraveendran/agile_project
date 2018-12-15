@@ -1,3 +1,5 @@
+package src.main.java;
+
  
 
 
@@ -40,9 +42,9 @@ public class ComputerPlayerTest
         Board board = new Board(light, dark);
         ComputerPlayer test = new ComputerPlayer("dark", board);
 
-        int move = test.move();
+        boolean move = test.move();
         boolean output;
-        if(move < 9 && move >= 0) {
+        if(move) {
             output = true;
         }else{
             output = false;

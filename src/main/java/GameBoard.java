@@ -7,10 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class GameBoard {
-
-    int score = 0;
-    boolean darkTuzz = false, lightTuzz = false;
-    int darkDeniedIndex = 0, lightDeniedIndex = 0;
     JLabel darkHole[] = new JLabel[9];
     JButton lightHole[] = new JButton[9];
 
@@ -20,7 +16,6 @@ public class GameBoard {
     JPanel darkPanel[] = new JPanel[9];
     JPanel lightPanel[] = new JPanel[9];
 
-    private boolean dark, light;
     private JFrame f;
     private JPanel mainPanel;
     private JPanel dark_Panel, light_Panel;
