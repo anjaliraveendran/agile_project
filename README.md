@@ -1,6 +1,8 @@
 # agile_project
 Team Echidna
 
-Agatha Policella
+Agatha 
 Nabiha
 Sher
+Eno
+Anjali
