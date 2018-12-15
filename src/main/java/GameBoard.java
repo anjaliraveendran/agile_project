@@ -9,34 +9,121 @@ import java.util.Random;
 public class GameBoard {
 
     int score = 0;
-    boolean p1Tuzz = false, p2Tuzz = false;
-    int p1DeniedIndex = 0, p2DeniedIndex = 0;
-    JLabel player1Point[] = new JLabel[9];
-    JLabel player2Point[] = new JLabel[9];
+    boolean darkTuzz = false, lightTuzz = false;
+    int darkDeniedIndex = 0, lightDeniedIndex = 0;
+    JLabel darkHole[] = new JLabel[9];
+    JButton lightHole[] = new JButton[9];
 
-    JLabel player1korgool[] = new JLabel[9];
-    JLabel player2korgool[] = new JLabel[9];
+    JLabel darkkorgool[] = new JLabel[9];
+    JLabel lightkorgool[] = new JLabel[9];
 
-    JPanel player1Panel[] = new JPanel[9];
-    JPanel player2Panel[] = new JPanel[9];
+    JPanel darkPanel[] = new JPanel[9];
+    JPanel lightPanel[] = new JPanel[9];
 
-    private boolean player1, player2;
+    private boolean dark, light;
     private JFrame f;
     private JPanel mainPanel;
-    private JPanel player1_Panel, player2_Panel;
-    private JPanel kazan_Panel, py1_kz_panel, py2_kz_panel;
-    private JPanel btn_Panel;
-    private JButton player1_btn, player2_btn;
+    private JPanel dark_Panel, light_Panel;
+    private JPanel kazan_Panel, dark_kz_panel, light_kz_panel;
+    private JLabel dark_kazan_l, light_kazan_l;
 
-    private JLabel p1_kazan_l, p2_kazan_l;
-    private Random rand = new Random();
+    private static final String lightC = "white";
+    private static final String darkC = "black";
     private Board board;
+    private HumanPlayer player;
+    private ComputerPlayer AI;
 
     public GameBoard() {
-        player1 = false;
-        player2 = true;
+        board = new Board(lightC, darkC);
+        player = new HumanPlayer(lightC, board);
+        AI = new ComputerPlayer(darkC, board);
+        
         gui();
-        Board board = new Board("light", "dark");
+        update();
+    }
+
+    private void update(){
+        for(int i = 8; i >= 0; i--) {
+            if(board.getSide(darkC).getTuz() != null ){
+                if(board.getSide(darkC).getTuz() == board.getSide(lightC).getHole(i)){
+                    lightkorgool[i].setText("TUZ");
+                }else{
+                    darkkorgool[i].setText("" + board.getSide(darkC).getNumberInHole(i));
+                }
+            }else{
+                darkkorgool[i].setText("" + board.getSide(darkC).getNumberInHole(i));
+            }
+        }
+        for(int i = 0; i < 9; i++) {
+            if(board.getSide(lightC).getTuz() != null){
+                if(board.getSide(lightC).getTuz() == board.getSide(darkC).getHole(i)){
+                    darkkorgool[i].setText("TUZ");
+                }else{
+                    lightkorgool[i].setText("" + board.getSide(lightC).getNumberInHole(i));
+                }
+            }else{
+                lightkorgool[i].setText("" + board.getSide(lightC).getNumberInHole(i));
+            }
+        }
+        dark_kazan_l.setText("" + board.getSide(darkC).getNumberInKazan());
+        light_kazan_l.setText("" + board.getSide(lightC).getNumberInKazan());
+    }
+
+    private void play(ActionEvent e) {
+        int i = getSource(e);
+        if(i == 10){
+            JOptionPane.showMessageDialog(null, "Something wrong with the actionlistener.");
+        }else{
+            if(player.move(i)){
+                update();
+                if(player.win())
+                {
+                    stop();
+                    JOptionPane.showMessageDialog(null, "You win!");
+                }
+                JOptionPane.showMessageDialog(null, "It is computer's route/");
+
+                AI.move();
+                update();
+                if(AI.win())
+                {
+                    stop();
+                    JOptionPane.showMessageDialog(null, "Oh! you lose.");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "This hole is empty, please try another one!");
+            }
+        }
+    }
+
+    private void stop(){
+        for(int i = 0; i < 9; i++){
+            lightHole[i].setEnabled(false);
+        }
+    }
+
+    private int getSource(ActionEvent e) {
+        Object source = e.getSource();
+        if(source == lightHole[0]){
+            return 0;
+        }else if(source == lightHole[1]){
+            return 1;
+        }else if(source == lightHole[2]){
+            return 2;
+        }else if(source == lightHole[3]){
+            return 3;
+        }else if(source == lightHole[4]){
+            return 4;
+        }else if(source == lightHole[5]){
+            return 5;
+        }else if(source == lightHole[6]){
+            return 6;
+        }else if(source == lightHole[7]){
+            return 7;
+        }else if(source == lightHole[8]){
+            return 8;
+        }
+        return 10;
     }
 
     private void gui() {
@@ -48,374 +135,68 @@ public class GameBoard {
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(3, 1, 2, 1));
 
-        player1_Panel = new JPanel();
-        player1_Panel.setLayout(new GridLayout(1, 9, 2, 1));
+        dark_Panel = new JPanel();
+        dark_Panel.setLayout(new GridLayout(1, 9, 2, 1));
 
-        int j = 9;
         for (int i = 8; i >= 0; i--) {
-            player1Panel[i] = new JPanel(new GridLayout(2, 1, 2, 1));
-            player1Panel[i].setBackground(Color.GRAY);
-            player1Point[i] = new JLabel("9");
-            player1Point[i].setHorizontalAlignment(JLabel.CENTER);
-            player1korgool[i] = new JLabel(i + 1 + "");
-            player1korgool[i].setHorizontalAlignment(JLabel.CENTER);
-            player1Panel[i].add(player1Point[i]);
-            player1Panel[i].add(player1korgool[i]);
-            player1_Panel.add(player1Panel[i]);
+            darkPanel[i] = new JPanel(new GridLayout(2, 1, 2, 1));
+            darkPanel[i].setBackground(Color.GRAY);
+            darkHole[i] = new JLabel(i + 1 + "");
+            darkHole[i].setHorizontalAlignment(JLabel.CENTER);
+            darkkorgool[i] = new JLabel();
+            darkkorgool[i].setHorizontalAlignment(JLabel.CENTER);
+            darkPanel[i].add(darkHole[i]);
+            darkPanel[i].add(darkkorgool[i]);
+            dark_Panel.add(darkPanel[i]);
         }
-        mainPanel.add(player1_Panel);
+        mainPanel.add(dark_Panel);
 
         kazan_Panel = new JPanel();
         kazan_Panel.setLayout(new GridLayout(1, 3, 2, 1));
 
-        py1_kz_panel = new JPanel();
-        py1_kz_panel.setBackground(Color.GRAY);
+        dark_kz_panel = new JPanel();
+        dark_kz_panel.setBackground(Color.GRAY);
 
-        p1_kazan_l = new JLabel("0");
-        p1_kazan_l.setHorizontalAlignment(JLabel.CENTER);
-        p1_kazan_l.setVerticalAlignment(JLabel.CENTER);
-        py1_kz_panel.add(p1_kazan_l);
+        dark_kazan_l = new JLabel();
+        dark_kazan_l.setHorizontalAlignment(JLabel.CENTER);
+        dark_kazan_l.setVerticalAlignment(JLabel.CENTER);
+        dark_kz_panel.add(dark_kazan_l);
 
-        py2_kz_panel = new JPanel();
-        py2_kz_panel.setBackground(Color.LIGHT_GRAY);
-        p2_kazan_l = new JLabel("0");
-        p2_kazan_l.setHorizontalAlignment(JLabel.CENTER);
-        p2_kazan_l.setVerticalAlignment(JLabel.CENTER);
-        py2_kz_panel.add(p2_kazan_l);
+        light_kz_panel = new JPanel();
+        light_kz_panel.setBackground(Color.LIGHT_GRAY);
+        light_kazan_l = new JLabel();
+        light_kazan_l.setHorizontalAlignment(JLabel.CENTER);
+        light_kazan_l.setVerticalAlignment(JLabel.CENTER);
+        light_kz_panel.add(light_kazan_l);
 
-        btn_Panel = new JPanel();
-        btn_Panel.setLayout(new GridLayout(2, 1, 2, 1));
-        player1_btn = new JButton("Player 1 MOVE");
-        player2_btn = new JButton("Player 2 MOVE");
-        player1_btn.setBackground(Color.GRAY);
-        player2_btn.setBackground(Color.LIGHT_GRAY);
-
-       /* public void makeRandomMove(){
-            int n = rand.nextInt(9) + 1;
-            System.out.print("random is "+ n);
-
-            player1Redistribution(n);
-
-            int totalScore = Integer.parseInt(p1_kazan_l.getText());
-            if (totalScore >= 82) {
-                            JOptionPane.showMessageDialog(null, "Player 1 has won the game. The End");
-                            score = totalScore;
-                            player2 = false;
-                            player1 = false;
-                        }
-
-} 
-                 else {
-                    if (score > 0) {
-                        JOptionPane.showMessageDialog(null, "Game Ended Succesfully");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Dark player has already played");
-                    }
-                }
-
-
-
-        }*/
-
-        player1_btn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (player1) {
-                    int stoneCount = 0;
-                    player1 = false;
-                    player2 = true;
-
-                   
-
-                    int n = rand.nextInt(9) + 1;
-                     System.out.print("random is "+ n);
-
-                        player1Redistribution(n);
-
-                        int totalScore = Integer.parseInt(p1_kazan_l.getText());
-                        if (totalScore >= 82) {
-                            JOptionPane.showMessageDialog(null, "Player 1 has won the game. The End");
-                            score = totalScore;
-                            player2 = false;
-                            player1 = false;
-                        }
-
-                    } 
-                 else {
-                    if (score > 0) {
-                        JOptionPane.showMessageDialog(null, "Game Ended Succesfully");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Dark player has already played");
-                    }
-                }
-            
-
-            }
-        });
-
-        player2_btn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (player2) {
-                    int stoneCount = 0;
-                    player2 = false;
-                    player1 = true;
-                    String s2 = JOptionPane.showInputDialog("Light Player select your korgool: ");
-                    if (!"".equals(s2) && ("1".equals(s2) || "2".equals(s2) || "3".equals(s2) || "4".equals(s2) || "5".equals(s2) || "6".equals(s2) || "7".equals(s2) || "8".equals(s2) || "9".equals(s2))) {
-                        int input = Integer.parseInt(s2);
-                        //player2Redistribution(input);
-                        board.moveBalls(input);
-                        int totalScore = Integer.parseInt(p2_kazan_l.getText());
-                        if (totalScore >= 82) {
-                            JOptionPane.showMessageDialog(null, "Player 2 has won the game. The End");
-                            score = totalScore;
-                            player2 = false;
-                            player1 = false;
-                        }
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Invalid Input");
-                        player2 = true;
-                        player1 = false;
-                    }
-                } else {
-                    if (score > 0) {
-                        JOptionPane.showMessageDialog(null, "Game Ended Succesfully");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Dark player has already played");
-                    }
-                }
-            }
-
-        });
-
-        btn_Panel.add(player1_btn);
-        btn_Panel.add(player2_btn);
-
-        kazan_Panel.add(py1_kz_panel);
-        kazan_Panel.add(btn_Panel);
-        kazan_Panel.add(py2_kz_panel);
+        kazan_Panel.add(dark_kz_panel);
+        kazan_Panel.add(light_kz_panel);
         mainPanel.add(kazan_Panel);
 
-        player2_Panel = new JPanel();
-        player2_Panel.setLayout(new GridLayout(1, 9, 2, 1));
+        light_Panel = new JPanel();
+        light_Panel.setLayout(new GridLayout(1, 9, 2, 1));
 
         for (int i = 0; i < 9; i++) {
-            player2Panel[i] = new JPanel(new GridLayout(2, 1, 2, 1));
-            player2Panel[i].setBackground(Color.LIGHT_GRAY);
-            player2Point[i] = new JLabel("9");
-            player2Point[i].setHorizontalAlignment(JLabel.CENTER);
-            player2korgool[i] = new JLabel(i + 1 + "");
-            player2korgool[i].setHorizontalAlignment(JLabel.CENTER);
-            player2Panel[i].add(player2Point[i]);
-            player2Panel[i].add(player2korgool[i]);
-            player2_Panel.add(player2Panel[i]);
-        }
-        mainPanel.add(player2_Panel);
+            lightPanel[i] = new JPanel(new GridLayout(2, 1, 2, 1));
+            lightPanel[i].setBackground(Color.LIGHT_GRAY);
+            lightHole[i] = new JButton(i + 1 + "");
+            lightHole[i].setHorizontalAlignment(JLabel.CENTER);
+            lightkorgool[i] = new JLabel();
+            lightkorgool[i].setHorizontalAlignment(JLabel.CENTER);
+            lightPanel[i].add(lightHole[i]);
+            lightPanel[i].add(lightkorgool[i]);
+            light_Panel.add(lightPanel[i]);
 
-        f.setLocationRelativeTo(null);
-        f.add(mainPanel);
+            lightHole[i].addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        play(e);
+                    }
+                });
+            mainPanel.add(light_Panel);
+
+            f.setLocationRelativeTo(null);
+            f.add(mainPanel);
+        }
     }
 
-    void player2Redistribution(int index) {
-        int moveEnd = -1;
-        int start = index;
-        int end = 0;
-        if (!"TUZZ".equals(player2Point[start - 1].getText())) {
-            String p = player2Point[start - 1].getText();
-            int points = Integer.parseInt(p);
-            if (points > 0) {
-                if (points == 1)
-                {
-                    if(start!=9)
-                    {
-                        player2Point[start - 1].setText("0");
-                        if (!"TUZZ".equals(player2Point[start].getText()))
-                        {
-                            int c = Integer.parseInt(player2Point[start].getText());
-                            player2Point[start].setText(c + 1 + "");
-                        } else
-                        {
-                            int c3 = Integer.parseInt(player2Point[start + 1].getText());
-                            player2Point[start].setText(c3 + 1 + "");
-                        }
-                    }
-                    else
-                    {
-                        player2Point[start - 1].setText("0");
-                        if (!"TUZZ".equals(player1Point[0].getText()))
-                        {
-                            int c = Integer.parseInt(player1Point[0].getText());
-                            player1Point[0].setText(c + 1 + "");
-                        } else
-                        {
-                            int c3 = Integer.parseInt(player1Point[1].getText());
-                            player1Point[1].setText(c3 + 1 + "");
-                        }
-                    }
-                }
-                else
-                {
-                    player2Point[start - 1].setText("1");
-                    points--;
-                    while (points > 0) {
-                        int N = 9 - start + 1;
-                        if (points > N) {
-                            end = 9;
-                        } else {
-                            end = start + points;
-                        }
-                        for (int i = start; i < end; i++) {
-                            if (!"TUZZ".equals(player2Point[i].getText())) {
-                                int a = Integer.parseInt(player2Point[i].getText());
-                                player2Point[i].setText(a + 1 + "");
-                                points--;
-                            }
-                        }
-                        N = 9;
-                        if (points > N) {
-                            end = 9;
-                        } else {
-                            end = 1 + points - 1;
-                        }
-                        for (int i = 0; i < end; i++) {
-                            if (!"TUZZ".equals(player1Point[i].getText())) {
-                                int b = Integer.parseInt(player1Point[i].getText());
-                                player1Point[i].setText(b + 1 + "");
-                                points--;
-                                moveEnd = i;
-                            }
-                        }
-                        if (moveEnd >= 0) {
-                            int b1 = Integer.parseInt(player1Point[moveEnd].getText());
-                            if (b1 % 2 == 0) {
-                                int d = Integer.parseInt(p2_kazan_l.getText());
-                                p2_kazan_l.setText(d + b1 + "");
-                                player1Point[moveEnd].setText("0");
-                            }
-                            if (b1 == 3 && moveEnd != 8 && p2Tuzz == false && moveEnd != p2DeniedIndex) {
-                                p1DeniedIndex = moveEnd;
-                                int b11 = Integer.parseInt(player1Point[moveEnd].getText());
-                                int d1 = Integer.parseInt(p2_kazan_l.getText());
-                                p2_kazan_l.setText(d1 + b11 + "");
-                                player1Point[moveEnd].setText("TUZZ");
-                                p2Tuzz = true;
-                            }
-                        }
-                        start = 0;
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Is already 0 choose another one");
-                player2 = true;
-                player1 = false;
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "It is tuzzed choose another one");
-            player2 = true;
-            player1 = false;
-        }
-    }//end player2Redistribution
-
-    void player1Redistribution(int index) {
-
-        int moveEnd = -1;
-        int start = index;
-        int end = 0;
-        if (!"TUZZ".equals(player1Point[start - 1].getText())) {
-            String p = player1Point[start - 1].getText();
-            int points = Integer.parseInt(p);
-            if (points > 0) {
-                if (points == 1)
-                {
-                    if(start!=9)
-                    {
-                        player1Point[start - 1].setText("0");
-                        if (!"TUZZ".equals(player1Point[start].getText()))
-                        {
-                            int c = Integer.parseInt(player1Point[start].getText());
-                            player1Point[start].setText(c + 1 + "");
-                        }
-                        else
-                        {
-                            int c4 = Integer.parseInt(player1Point[start + 1].getText());
-                            player1Point[start].setText(c4 + 1 + "");
-                        }
-                    }
-                    else
-                    {
-                        player1Point[start - 1].setText("0");
-                        if (!"TUZZ".equals(player2Point[0].getText()))
-                        {
-                            int c = Integer.parseInt(player2Point[0].getText());
-                            player2Point[0].setText(c + 1 + "");
-                        } else
-                        {
-                            int c3 = Integer.parseInt(player2Point[1].getText());
-                            player2Point[1].setText(c3 + 1 + "");
-                        }
-                    }
-                }
-                else
-                {
-                    player1Point[start - 1].setText("1");
-                    points--;
-                    while (points > 0) {
-                        int N = 9 - start + 1;
-                        if (points > N) {
-                            end = 9;
-                        } else {
-                            end = start + points;
-                        }
-                        for (int i = start; i < end; i++) {
-                            if (!"TUZZ".equals(player1Point[i].getText())) {
-                                int a = Integer.parseInt(player1Point[i].getText());
-                                player1Point[i].setText(a + 1 + "");
-                                points--;
-                            }
-                        }
-                        N = 9 - 1 + 1;
-                        if (points > N) {
-                            end = 9;
-                        } else {
-                            end = 1 + points - 1;
-                        }
-                        for (int i = 0; i < end; i++) {
-                            if (!"TUZZ".equals(player2Point[i].getText())) {
-                                int b = Integer.parseInt(player2Point[i].getText());
-                                player2Point[i].setText(b + 1 + "");
-                                points--;
-                                moveEnd = i;
-                            }
-                        }
-                        if (moveEnd >= 0) {
-                            int b1 = Integer.parseInt(player2Point[moveEnd].getText());
-                            if (b1 % 2 == 0) {
-                                int d = Integer.parseInt(p1_kazan_l.getText());
-                                p1_kazan_l.setText(d + b1 + "");
-                                player2Point[moveEnd].setText("0");
-                            }
-                            if (b1 == 3 && moveEnd != 8 && p1Tuzz == false && moveEnd != p1DeniedIndex) {
-                                p2DeniedIndex = moveEnd;
-                                int b11 = Integer.parseInt(player2Point[moveEnd].getText());
-                                int d1 = Integer.parseInt(p1_kazan_l.getText());
-                                p1_kazan_l.setText(d1 + b11 + "");
-                                player2Point[moveEnd].setText("TUZZ");
-                                p1Tuzz = true;
-                            }
-                        }
-                        start = 0;
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Is already 0 choose another one");
-                player1 = true;
-                player2 = false;
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "It is tuzzed choose another one");
-            player1 = true;
-            player2 = false;
-        }
-    }//end player2Redistribution
-
-    
 }

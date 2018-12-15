@@ -42,8 +42,17 @@ public class Board
         } 
         return false;
     }
+    
+    public Side getSide(String colour)
+    {
+        if(colour.equals(sideDark.getColour())){
+            return sideDark;
+        }else{
+            return sideLight;
+        }
+    }
 
-    public void moveBalls(int index, String colour) {
+    public boolean moveBalls(int index, String colour) {
         Side current;
         Side other;
         if(isDark(colour)){
@@ -54,14 +63,14 @@ public class Board
             other = sideDark;
         }
 
-        //int indexOfCurrent = index - 1;
-        //Hole startHole = holesOfBoth[indexOfCurrent];
-        //int numberInHole = startHole.getNumberOfKorgools();
-
         Hole startHole = current.getHole(index);
         int numberInHole = startHole.getNumberOfKorgools();
         boolean changeSide = false;
 
+        if(numberInHole == 0) {
+            return false;
+        }
+        
         if(numberInHole > 1) {
             for(int i = numberInHole; i > 1; i--) {
                 if(index < 8)
@@ -70,17 +79,18 @@ public class Board
                     current.addKorgoolsToHole(index);
                     startHole.deleteKorgools(1);
                     System.out.println("Korgools: " + startHole.getNumberOfKorgools() + "adding Hole: " + (index + 1) + "Korgools:"
-                     + current.getNumberInHole(index));
+                     + current.getNumberInHole(index) );
                 }else{
                     index++;
                     other.addKorgoolsToHole(index%8);
                     startHole.deleteKorgools(1);
                     System.out.println("Korgools: " + startHole.getNumberOfKorgools() + "adding Hole: " + (index + 1) + "Korgools:"
-                     + other.getNumberInHole(index%8));
+                     + other.getNumberInHole(index%8) );
                     changeSide = true;
                     //System.out.println("index..."+ i +": num..." + numberInHole);
                 } 
             }
+            
         }else if(numberInHole == 1) {
 
             if(index > 8)
@@ -93,11 +103,12 @@ public class Board
                 
             }else{
                 index++;
-                current.addKorgoolsToHole(index%8);
+                current.addKorgoolsToHole(index%9);
                 startHole.deleteKorgools(1);
                 System.out.println(startHole.getNumberOfKorgools());
             }
         }
+        System.out.println("\n");
         Hole hole;
         if(changeSide){
             hole = other.getHole(index%8);
@@ -110,24 +121,21 @@ public class Board
             current.updateKazan(hole);
         }
 
-        if(current.getTuz() == null && hole.getIndex() != other.getTuz().getIndex()){
-            if(hole.getNumberOfKorgools() == tuzNum && !hole.getColour().equals(current.getColour()) && tuzRules(index))
+        if(current.getTuz() == null && (other.getTuz() == null || hole.getIndex() != other.getTuz().getIndex())){
+            if(hole.getNumberOfKorgools() == tuzNum && !hole.getColour().equals(current.getColour()))
             {
                 //add to current players kazan
-                current.updateKazan(hole);
                 current.setTuz(hole);
+                current.updateKazan(hole);
+                
             }
-        }else{
+        }else if(current.getTuz() != null){
             //int n = side.getTuz().getNumberOfKorgools();
             //side.getTuz().deleteKorgools(n);
             current.updateKazan(current.getTuz());
         }
 
-    }
-
-    private boolean tuzRules(int index)
-    {
-        return ((index % 8) == 0 || (index % 17) == 0);
+        return true;
     }
 
     private boolean isDark(String colour)

@@ -9,11 +9,11 @@ public class ComputerPlayer extends Player{
         rand = new Random();
     }
 
-    protected void move()
+    protected boolean move()
     {
         int n = rand.nextInt(9);
-
-        board.moveBalls(n,colour);
-
+        boolean go = board.moveBalls(n,colour);
+        score = board.getSide(colour).getNumberInKazan();
+        return go;
     } 
 }
