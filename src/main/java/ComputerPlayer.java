@@ -8,7 +8,7 @@ public class ComputerPlayer extends Player{
         super(colour,board);
         rand = new Random();
     }
-
+    //used a random number  generator to pick a hole form 0 to 9
     protected boolean move()
     {
         int n = rand.nextInt(9);

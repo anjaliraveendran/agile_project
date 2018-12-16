@@ -26,7 +26,7 @@ public class Board
         sideLight = new Side(lightC);
 
     }
-    
+    //returns if the dark side player wins
     public boolean darkWin()
     {
         if(sideDark.getNumberInKazan() >= 82){
@@ -34,7 +34,7 @@ public class Board
         }
         return false;
     }
-    
+    //returns if the light side player wins
     public boolean lightWin()
     {
         if(sideLight.getNumberInKazan() >= 82){
@@ -42,7 +42,7 @@ public class Board
         } 
         return false;
     }
-    
+    //returns the side of the board 
     public Side getSide(String colour)
     {
         if(colour.equals(sideDark.getColour())){
@@ -51,7 +51,7 @@ public class Board
             return sideLight;
         }
     }
-
+    //moveBalls checks all the conditions for the game logic, it adjusts the hole sizes and updates the kazan
     public boolean moveBalls(int index, String colour) {
         Side current;
         Side other;
@@ -70,7 +70,7 @@ public class Board
         if(numberInHole == 0) {
             return false;
         }
-        
+        //adds to holes sequential order and adds to kazan if condition is met
         if(numberInHole > 1) {
             for(int i = numberInHole; i > 1; i--) {
                 if(index < 8)
@@ -87,10 +87,9 @@ public class Board
                     System.out.println("Korgools: " + startHole.getNumberOfKorgools() + "adding Hole: " + (index + 1) + "Korgools:"
                      + other.getNumberInHole(index%8) );
                     changeSide = true;
-                    //System.out.println("index..."+ i +": num..." + numberInHole);
                 } 
             }
-            
+            //just adds to the next hole if only 1 korgool is to be added
         }else if(numberInHole == 1) {
 
             if(index > 8)
@@ -124,20 +123,18 @@ public class Board
         if(current.getTuz() == null && (other.getTuz() == null || hole.getIndex() != other.getTuz().getIndex())){
             if(hole.getNumberOfKorgools() == tuzNum && !hole.getColour().equals(current.getColour()))
             {
-                //add to current players kazan
+                
                 current.setTuz(hole);
                 current.updateKazan(hole);
                 
             }
         }else if(current.getTuz() != null){
-            //int n = side.getTuz().getNumberOfKorgools();
-            //side.getTuz().deleteKorgools(n);
             current.updateKazan(current.getTuz());
         }
 
         return true;
     }
-
+    //returns if the side is darl
     private boolean isDark(String colour)
     {
         if(sideDark.getColour().equals(colour))
