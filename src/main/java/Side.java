@@ -19,7 +19,7 @@ public class Side
     private Hole h8;
     private Hole h9;
     
-
+    //creating an array with 9 holes and sets their colours
     public Side(String colour)
     {
         h1 = new Hole(1);
@@ -52,7 +52,7 @@ public class Side
     {
         return holes[index];
     }
-
+    //adds to the Kazan whilst deleting from the hole
     public void updateKazan(Hole hole)
 
     {
@@ -69,12 +69,12 @@ public class Side
     public String getColour() {
         return colour;
     }
-    
+    //returns the hole whhich is the tuz
     public Hole getTuz()
     {
         return tuz;
     }
-    
+    //creats a tuz
     public void setTuz(Hole tuz)
     {
         this.tuz = tuz;
